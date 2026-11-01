@@ -1,0 +1,42 @@
+# Al subir un tag vX.Y.Z, compila ExportMyMusic.exe con esa versión y lo publica en Releases.
+# Las copias instaladas lo detectan y se actualizan solas.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Poner la versión del tag en la app
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          (Get-Content actualizador.py) -replace '^VERSION = ".*"', "VERSION = `"$version`"" |
+            Set-Content actualizador.py -Encoding utf8
+          Select-String -Path actualizador.py -Pattern '^VERSION = '
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt pyinstaller
+
+      - name: Compilar
+        run: >
+          pyinstaller --noconfirm --onefile --windowed --name ExportMyMusic
+          --collect-data imageio_ffmpeg --collect-submodules yt_dlp --copy-metadata yt-dlp gui.py
+
+      - name: Publicar release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/ExportMyMusic.exe
+          generate_release_notes: true

@@ -1,0 +1,24 @@
+# Entorno virtual de Python
+.venv/
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Salida de PyInstaller (el .exe se publica en Releases, no en el repo)
+build/
+dist/
+*.spec
+
+# Música descargada y restos de descargas a medias
+Descargas/
+*.mp3
+*.webm
+*.m4a
+*.part
+*.ytdl
+fallidas.txt
+
+# Listas personales (Choosic / Exportify)
+*.csv
+listas/
