@@ -11,7 +11,7 @@ named after your playlist.
 ## Features
 
 - Simple desktop window: pick your list, name the folder, click **Download**
-- Supports Choosic `.txt` lists, Exportify `.csv` exports and plain `Artist - Song` text files
+- Supports [Choosic](https://www.chosic.com/) `.txt` lists, [Exportify](https://exportify.net/) `.csv` exports and plain `Artist - Song` text files
 - MP3 output at 128, 192, 256 or 320 kbps with artist and title tags
 - Files named `Artist - Song.mp3`
 - Re-running a list skips songs you already have
